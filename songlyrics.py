@@ -15,19 +15,18 @@ def clean(data, column):
 
 performers = clean(df,'Performer')
 lyrics = clean(df,'Song')
-songs_and_performers = list(zip(performers,lyrics))
-
+songs_and_performers = list(zip(performers,lyrics,[songid for songid in df['SongID']]))
 url_list = []
 
-for x,y in songs_and_performers:
+for x,y,z in songs_and_performers:
     url = f'http://www.songlyrics.com/{x}/{y}-lyrics/'
     url_list.append(url)
     
-songs_and_performers = list(zip(performers,lyrics,url_list))
+songs_and_performers = list(zip(performers,lyrics,[songid for songid in df['SongID']],url_list))
 
-for x, y, z in songs_and_performers:
+for w, x, y, z in songs_and_performers:
     chosen_url = z
-    title = x+y
+    title = y
     result = requests.get(chosen_url)
     soup = bs4.BeautifulSoup(result.text,'lxml')
     
