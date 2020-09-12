@@ -15,10 +15,9 @@ def clean(data, column):
 
 performers = clean(df,'Performer')
 lyrics = clean(df,'Song')
+songs_and_performers = list(zip(performers,lyrics))
 
 url_list = []
-
-songs_and_performers = list(zip(performers,lyrics))
 
 for x,y in songs_and_performers:
     url = f'http://www.songlyrics.com/{x}/{y}-lyrics/'
@@ -34,4 +33,4 @@ for x, y, z in songs_and_performers:
     
     with open(f'{title}.txt','w') as songs:
         for line in soup.select('#songLyricsDiv')[0].get_text().split('\n'):
-            songs.write(line)
+            songs.write(line + '\n')
